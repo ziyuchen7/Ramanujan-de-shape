@@ -1,6 +1,5 @@
 close all ; clear all ;
 % Code to generate figures 1, 3, 4, 7, 8, 9, 12
-
 % basic parameters for STFT
 basicTF.win = 1201; %4096;
 basicTF.hop = 101; %441;
@@ -102,11 +101,11 @@ set(gca, 'fontsize', 15);axis tight
 
 figure
 subplot(3,2,1)
-imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic*basicTF.fs, abs(tfr), p); axis xy; colormap(1-gray);
+imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic*basicTF.fs, abs(tfr(:,2:end)), p); axis xy; colormap(1-gray);
 xlabel('time (s)'); ylabel('frequency (Hz)'); %title('STFT');
 %annotation('arrow',[0.2,0.22],[0.56,0.58],'Color','red')
 subplot(3,2,2)
-imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic*basicTF.fs, abs(tfr).^0.1, p); axis xy; colormap((1-gray).^(1/4));
+imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic*basicTF.fs, abs(tfr(:,2:end)).^0.1, p); axis xy; colormap((1-gray).^(1/4));
 xlabel('time (s)'); ylabel('frequency (Hz)'); %title('STFT');
 subplot(323)
 plot((tfrtic(2)-tfrtic(1))*(1:1500)*basicTF.fs, abs(tfr0(:,60)),'color','k');
@@ -121,11 +120,11 @@ set(gca, 'fontsize', 15);
 
 figure
 subplot(121)
-imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic(1:101)*basicTF.fs, tceps(1:101,:), p); axis xy; colormap(1-gray);
-xlabel('time (s)'); ylabel('frequency (Hz)'); %title('STFT');
+imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic(4:101)*basicTF.fs, tceps(4:101,2:end), p); axis xy; colormap(1-gray);
+xlabel('time (s)'); ylabel('frequency (Hz)'); 
 subplot(122)
-imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic(1:101)*basicTF.fs, tfrr(1:101,:), p); axis xy; colormap(1-gray);
-xlabel('time (s)'); ylabel('frequency (Hz)'); %title('De-shape STFT');
+imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic(4:101)*basicTF.fs, tfrr(4:101,2:end), p); axis xy; colormap(1-gray);
+xlabel('time (s)'); ylabel('frequency (Hz)'); 
 
 figure
 subplot(121)
@@ -149,7 +148,7 @@ subplot(324)
 imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic(1:101)*basicTF.fs, tprr4(1:101,:), p); axis xy; colormap(1-gray);
 xlabel('time (s)'); ylabel('frequency (Hz)'); colorbar%title('RDS');
 subplot(325)
-imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic(1:101)*basicTF.fs, nptrr(1:101,:), p); axis xy; colormap(1-gray);
+imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic(1:101)*basicTF.fs, ntprr(1:101,:), p); axis xy; colormap(1-gray);
 xlabel('time (s)'); ylabel('frequency (Hz)'); colorbar%title('vRDS');
 
 
@@ -164,3 +163,7 @@ xlabel('time (s)'); ylabel('Period'); %title('STPT 2');
 subplot(223)
 imageSQ(0:time_stamp:time_stamp*148, 1:200, stpr3, 0.999); axis xy; colormap(1-gray);
 xlabel('time (s)'); ylabel('Period'); %title('STPT 3');
+
+figure
+imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), (1:size(ceps,1))./basicTF.fs, abs(ceps), 0.999); axis xy; colormap(1-gray); axis([-inf inf 0 4]) ;
+xlabel('time (s)'); ylabel('quefrency (sec)');
