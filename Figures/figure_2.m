@@ -30,6 +30,9 @@ x2 = 5 .* s2(1:length(AM2)) ;
 s = @(x) cos(2*pi*x) + 2*cos(4*pi*x) + 3*cos(6*pi*x) + 4*cos(8*pi*x) + ...
     7*cos(10*pi*x) + 10*cos(12*pi*x) + 8*cos(14*pi*x) + 6*cos(16*pi*x) + ...
     3*cos(18*pi*x) + cos(20*pi*x);
+s = @(x) cos(2*pi*x) + 2*cos(4*pi*x+2) + 3*cos(6*pi*x+1) + 4*cos(8*pi*x) + ...
+    7*cos(10*pi*x) - 10*cos(12*pi*x) + 8*cos(14*pi*x) + 6*cos(16*pi*x-1.5) + ...
+    3*cos(18*pi*x+0.8) + cos(20*pi*x-0.2);
 x3 = s(phi);
 x = x3 ;
 x = x - mean(x);
@@ -71,4 +74,5 @@ set(gca, 'fontsize', 15);axis tight
 subplot(2,1,2)
 imageSQ(0:time_stamp:time_stamp*(size(tfr,2)-1), tfrtic*basicTF.fs, tfr, p); axis xy; colormap(1-gray);
 xlabel('time (s)'); ylabel('frequency (Hz)'); %title('STFT');
+set(gca, 'fontsize', 15);
 end
